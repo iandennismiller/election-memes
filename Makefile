@@ -21,7 +21,7 @@ clean:
 	rm -rf analysis/_bookdown_files/
 	rm -rf analysis/_book/
 
-release: clean analysis pdf
+release: clean pdf analysis
 	git commit -am "release"
 	git push
 

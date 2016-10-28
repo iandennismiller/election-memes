@@ -2,3 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
+/analysis/*.html
+/analysis/*.md
+/analysis/*.pdf
+/analysis/*_files
+/analysis/_book/
