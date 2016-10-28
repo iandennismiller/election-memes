@@ -96,27 +96,61 @@ for (tuple in mapping) {
 
 df[["candidate"]] = as.factor(df[["candidate"]])
 df[["caption"]] = as.character(df[["caption"]])
+df[["timestamp"]] = as.character(df[["timestamp"]])
+df[["raw_timestamp"]] = df[["timestamp"]]
 
 # parse time and create month time periods
-df[["timestamp"]] = as.POSIXct(strptime(df[["timestamp"]], format = "%m/%d/%y %H:%M"))
+df[["timestamp"]] = as.POSIXct(
+  parse_date_time(df[["raw_timestamp"]], c("m/d/y H:M", "Y-m-d H:M:S"), truncated = 3)
+)
 df[["period"]] = paste(year(df[["timestamp"]]), month(df[["timestamp"]]), "1", sep="-")
 df[["period"]] = as.POSIXct(strptime(df[["period"]], format="%Y-%m-%d"))
 ```
+
+## Date Range
+
+```{r}
+summary(df$timestamp)
+```
+```{r date-range, fig.height=3.5, fig.align="center", fig.cap="This plot breaks down the creation of memes over time by network."}
+ggplot(data=df, aes(x=timestamp, fill=network)) + 
+    geom_histogram() +
+    ggtitle("Number of memes created over time") +
+    ylab("# memes") +
+    xlab("year") +
+    fte_theme() +
+    theme(legend.position="top") +
+    geom_hline(yintercept=0, size=0.2, color="black")
+```
+
+## Range of Like Scores
+
+We first check to see whether the networks exhibit similar patterns of liking behaviour.
+
+```{r network-likes-range, fig.height=3.5, fig.align="center", fig.cap="Each network has a distinctive range of like scores."}
+ggplot(data=df, aes(x=network, y=likes)) +
+    geom_boxplot() + 
+    ggtitle("Range of Meme Likes by Network") +
+    ylab("# likes") +
+    xlab("nework") +
+    scale_y_log10() + 
+    fte_theme() +
+    theme(legend.position="top") +
+    geom_hline(yintercept=0, size=0.2, color="black")
+```
+
+These boxplots simply display raw scores.
 
 ## Scoring
 
 Because social media platforms vary in their users and capabilities, liking dynamics are not the same across networks.  As a result, we must standardize likes within networks so that we can make comparisons  with all the available data.
 
 ```{r scoring}
-for (network in c('facebook', 'instagram', 'twitter')) {
+for (network in c('imgur', 'facebook', 'instagram', 'twitter')) {
     cdf = ecdf(df[which(df[["network"]]==network),'likes'])
     df[which(df[["network"]]==network),'percentile'] = cdf(df[which(df[["network"]]==network),'likes'])
     df[which(df[["network"]]==network),'z_score'] = scale(df[which(df[["network"]]==network),'likes'], center = TRUE, scale = TRUE)
 }
-
-# no scores for imgur, so set it all to 0
-df[which(df[["network"]]=='imgur'),'percentile'] = 0
-df[which(df[["network"]]=='imgur'),'z_score'] = 0
 ```
 
 During development, it is useful to double-check the data.  This report is typically rendered with the following setting as FALSE, which skips the debugging step.
