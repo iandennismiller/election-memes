@@ -15,11 +15,21 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(cache = TRUE)
-# source("analysis.R")
-# source("plots.R")
+
+library(ggplot2)
+library(lubridate)
+library(RColorBrewer)
+
+set.seed(1620)
+
+source("fte_theme.R")
 ```
 
 # Introduction
+
+<div align="center" style="font-size: 20pt">
+<p>Working Paper.</p>
+</div>
 
 The 2016 US Presidential election is a great opportunity to make some memes.  Lots of people are doing it.  In October of 2016, a meme aggregator called Sizzle shared a subset of their meme data selected for candidate name content.  The data contain over 32,000 memes spanning four networks: Facebook, Instagram, Twitter, and Imgur.  This report first checks the relative quantity of candidate memes across social media platforms.  We then test to see whether memes about Clinton or Trump receive more likes. Finally, we visualize the change in meme liking over time.  Although liking a candidate meme is not equivalent to liking the candidate, it is safe to say that more likes are similar to more attention.  The plot of candidate meme likes over time reveals the monthly competition among US presidential candidates.
 
@@ -59,14 +69,6 @@ Data are from Sizzle, an online meme aggregator. Sizzle have coded the meme capt
 - caption: the text of the caption
 
 The general approach for this study is to import all the available CSV data, categorize it by candidate, and standardize the likes between social media platforms. This report is built with the R Language version 3.3.1.  The report is currently available as a Jupyter-style notebook via Kaggle.
-
-```{r libraries, include=FALSE}
-options(warn=-1)
-library(ggplot2)
-library(lubridate)
-options(warn=0)
-set.seed(1620)
-```
 
 ## Data Aggregation
 
@@ -136,12 +138,15 @@ First, we will briefly describe the distribution of memes.  Next, we'll look for
 
 A simple visualization displays the total quantity of memes made about the candidates, as well as the platform where those memes were shared.
 
-```{r candidate-memes}
+```{r candidate-memes, fig.height=3.5, fig.align="center", fig.cap="This plot shows how many total memes were made about each candidate as well as the platforms used to share those memes."}
 ggplot(data=df, aes(x=candidate, fill=network)) +
     stat_count(width = 1) +
     ggtitle("Candidate Memes by Platform") +
     ylab("# memes") +
-    xlab("candidate")
+    xlab("candidate") +
+    fte_theme() +
+    theme(legend.position="top") +
+    geom_hline(yintercept=0, size=0.2, color="black")
 ```
 
 If anything, there may be a surprising number of Trump memes shared on Instagram, but otherwise the candidates appear to be proportionally distributed across platforms.
@@ -163,7 +168,7 @@ From these data, it appears Clinton memes are liked a little bit less than avera
 
 Campaigns unfold over time and over the course of many media events. Candidates alternately have their moments of media spotlight on the basis of the attention they can attract. This attention may manifest as memes, which in turn create opportunities for likes. Since attention and likes will vary over time, we broke down meme scores by month to investigate time effects.
 
-```{r score-change, warning=FALSE}
+```{r score-change, warning=FALSE, fig.height=3.5, fig.align="center", fig.cap="Average monthly like-scores for each candidate."}
 averages = aggregate( z_score ~ period * candidate, df, mean )
 averages[["z_score"]] = averages[["V1"]]
 
@@ -174,12 +179,15 @@ ggplot(data=averages,
         aes(color=candidate, linetype=candidate),
         se=FALSE,
         method='loess',
-        size=0.3,
+        size=0.5,
         alpha=0.5) +
     ggtitle("Candidate-meme attention over time") +
-    ylab("likes (centered, standardized)") +
+    ylab("standardized like scores") +
     xlab("year") +
-    ylim(c(-0.5, 0.5))
+    ylim(c(-0.5, 0.5)) +
+    fte_theme() +
+    theme(legend.position="top") +
+    geom_hline(yintercept=-0.5, size=0.2, color="black")
 ```
 
 The plot depicts monthly average *like* scores for each candidate, and a moving-average regression line (LOESS) has been fit to the data.  The ups and downs of candidates over time, despite being called likes, should probably be interpreted as *attention* over time.  Trump memes are seen to achieve a huge amount of attention during the early part of 2016.  It is only in the most recent months that Clinton memes begin to gain relatively-more likes (and therefore, attention).
