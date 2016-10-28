@@ -71,7 +71,9 @@
 </ul></li>
 <li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a><ul>
 <li class="chapter" data-level="3.1" data-path="methods.html"><a href="methods.html#data-aggregation"><i class="fa fa-check"></i><b>3.1</b> Data Aggregation</a></li>
-<li class="chapter" data-level="3.2" data-path="methods.html"><a href="methods.html#scoring"><i class="fa fa-check"></i><b>3.2</b> Scoring</a></li>
+<li class="chapter" data-level="3.2" data-path="methods.html"><a href="methods.html#date-range"><i class="fa fa-check"></i><b>3.2</b> Date Range</a></li>
+<li class="chapter" data-level="3.3" data-path="methods.html"><a href="methods.html#range-of-like-scores"><i class="fa fa-check"></i><b>3.3</b> Range of Like Scores</a></li>
+<li class="chapter" data-level="3.4" data-path="methods.html"><a href="methods.html#scoring"><i class="fa fa-check"></i><b>3.4</b> Scoring</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a><ul>
 <li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#how-many-memes-were-created-for-each-candidate"><i class="fa fa-check"></i><b>4.1</b> How many memes were created for each candidate?</a></li>
@@ -110,8 +112,35 @@
 <h2><span class="header-section-number">3.1</span> Data Aggregation</h2>
 <p>The Sizzle data are separated by keyword, with a separate keyword corresponding to a separate CSV file. Because some candidates have results that are split across multiple files, we must aggregate across files. The data don’t load perfectly, so we also need to convert a few columns and parse timestamps.</p>
 </div>
+<div id="date-range" class="section level2">
+<h2><span class="header-section-number">3.2</span> Date Range</h2>
+<pre><code>##                  Min.               1st Qu.                Median 
+## &quot;2011-12-16 19:13:34&quot; &quot;2016-06-13 00:45:00&quot; &quot;2016-09-27 16:34:30&quot; 
+##                  Mean               3rd Qu.                  Max. 
+## &quot;2016-08-06 20:42:21&quot; &quot;2016-10-16 19:24:00&quot; &quot;2016-10-27 18:05:00&quot;</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:date-range"></span>
+<img src="election_memes_files/figure-html/date-range-1.png" alt="This plot breaks down the creation of memes over time by network." width="672" />
+<p class="caption">
+Figure 3.1: This plot breaks down the creation of memes over time by network.
+</p>
+</div>
+</div>
+<div id="range-of-like-scores" class="section level2">
+<h2><span class="header-section-number">3.3</span> Range of Like Scores</h2>
+<p>We first check to see whether the networks exhibit similar patterns of liking behaviour.</p>
+<pre><code>## Warning in self$trans$transform(x): NaNs produced</code></pre>
+<pre><code>## Warning: Removed 8875 rows containing non-finite values (stat_boxplot).</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:network-likes-range"></span>
+<img src="election_memes_files/figure-html/network-likes-range-1.png" alt="Each network has a distinctive range of like scores." width="672" />
+<p class="caption">
+Figure 3.2: Each network has a distinctive range of like scores.
+</p>
+</div>
+<p>These boxplots simply display raw scores.</p>
+</div>
 <div id="scoring" class="section level2">
-<h2><span class="header-section-number">3.2</span> Scoring</h2>
+<h2><span class="header-section-number">3.4</span> Scoring</h2>
 <p>Because social media platforms vary in their users and capabilities, liking dynamics are not the same across networks. As a result, we must standardize likes within networks so that we can make comparisons with all the available data.</p>
 <p>During development, it is useful to double-check the data. This report is typically rendered with the following setting as FALSE, which skips the debugging step.</p>
 </div>

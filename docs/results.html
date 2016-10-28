@@ -71,7 +71,9 @@
 </ul></li>
 <li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a><ul>
 <li class="chapter" data-level="3.1" data-path="methods.html"><a href="methods.html#data-aggregation"><i class="fa fa-check"></i><b>3.1</b> Data Aggregation</a></li>
-<li class="chapter" data-level="3.2" data-path="methods.html"><a href="methods.html#scoring"><i class="fa fa-check"></i><b>3.2</b> Scoring</a></li>
+<li class="chapter" data-level="3.2" data-path="methods.html"><a href="methods.html#date-range"><i class="fa fa-check"></i><b>3.2</b> Date Range</a></li>
+<li class="chapter" data-level="3.3" data-path="methods.html"><a href="methods.html#range-of-like-scores"><i class="fa fa-check"></i><b>3.3</b> Range of Like Scores</a></li>
+<li class="chapter" data-level="3.4" data-path="methods.html"><a href="methods.html#scoring"><i class="fa fa-check"></i><b>3.4</b> Scoring</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a><ul>
 <li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#how-many-memes-were-created-for-each-candidate"><i class="fa fa-check"></i><b>4.1</b> How many memes were created for each candidate?</a></li>
@@ -117,13 +119,13 @@ Figure 4.1: This plot shows how many total memes were made about each candidate 
 ##  Welch Two Sample t-test
 ## 
 ## data:  df[which(df[[&quot;candidate&quot;]] == &quot;clinton&quot;), &quot;z_score&quot;] and df[which(df$candidate == &quot;trump&quot;), &quot;z_score&quot;]
-## t = -5.3114, df = 30228, p-value = 1.095e-07
+## t = -5.2315, df = 32632, p-value = 1.692e-07
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.06765807 -0.03118327
+##  -0.07596078 -0.03455484
 ## sample estimates:
 ##   mean of x   mean of y 
-## -0.02661696  0.02280371</code></pre>
+## -0.03048025  0.02477756</code></pre>
 <p>From these data, it appears Clinton memes are liked a little bit less than average, whereas Trump memes are liked a little bit more. There is a small but statistically significant difference between mean likes among these candidates.</p>
 </div>
 <div id="change-in-like-scores-over-time" class="section level2">
