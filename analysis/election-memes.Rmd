@@ -60,7 +60,7 @@ Data are from Sizzle, an online meme aggregator. Sizzle have coded the meme capt
 
 The general approach for this study is to import all the available CSV data, categorize it by candidate, and standardize the likes between social media platforms. This report is built with the R Language version 3.3.1.  The report is currently available as a Jupyter-style notebook via Kaggle.
 
-```{r libraries, echo=FALSE}
+```{r libraries, include=FALSE}
 options(warn=-1)
 library(ggplot2)
 library(lubridate)

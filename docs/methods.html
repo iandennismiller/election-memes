@@ -106,12 +106,6 @@
 <li>caption: the text of the caption</li>
 </ul>
 <p>The general approach for this study is to import all the available CSV data, categorize it by candidate, and standardize the likes between social media platforms. This report is built with the R Language version 3.3.1. The report is currently available as a Jupyter-style notebook via Kaggle.</p>
-<pre><code>## Loading required package: methods</code></pre>
-<pre><code>## 
-## Attaching package: &#39;lubridate&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:base&#39;:
-## 
-##     date</code></pre>
 <div id="data-aggregation" class="section level2">
 <h2><span class="header-section-number">3.1</span> Data Aggregation</h2>
 <p>The Sizzle data are separated by keyword, with a separate keyword corresponding to a separate CSV file. Because some candidates have results that are split across multiple files, we must aggregate across files. The data don’t load perfectly, so we also need to convert a few columns and parse timestamps.</p>
