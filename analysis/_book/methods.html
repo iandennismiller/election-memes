@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Election Memes</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Election Memes">
+  <meta name="generator" content="bookdown 0.1.16 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Election Memes" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Election Memes" />
+  
+  
+  
+
+<meta name="author" content="Ian Dennis Miller">
+
+  
+<meta name="date" content="2016-10-27">
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="background.html">
+<link rel="next" href="results.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1</b> Overview</a></li>
+<li class="chapter" data-level="2" data-path="background.html"><a href="background.html"><i class="fa fa-check"></i><b>2</b> Background</a><ul>
+<li class="chapter" data-level="2.1" data-path="background.html"><a href="background.html#political-advertising-geography-and-hashtags"><i class="fa fa-check"></i><b>2.1</b> Political Advertising, Geography, and Hashtags</a></li>
+<li class="chapter" data-level="2.2" data-path="background.html"><a href="background.html#rational-social-media-agents"><i class="fa fa-check"></i><b>2.2</b> Rational Social Media Agents</a></li>
+<li class="chapter" data-level="2.3" data-path="background.html"><a href="background.html#bots"><i class="fa fa-check"></i><b>2.3</b> Bots</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a><ul>
+<li class="chapter" data-level="3.1" data-path="methods.html"><a href="methods.html#data-aggregation"><i class="fa fa-check"></i><b>3.1</b> Data Aggregation</a></li>
+<li class="chapter" data-level="3.2" data-path="methods.html"><a href="methods.html#scoring"><i class="fa fa-check"></i><b>3.2</b> Scoring</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a><ul>
+<li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#how-many-memes-were-created-for-each-candidate"><i class="fa fa-check"></i><b>4.1</b> How many memes were created for each candidate?</a></li>
+<li class="chapter" data-level="4.2" data-path="results.html"><a href="results.html#test-for-differences-between-candidates-in-terms-of-likes"><i class="fa fa-check"></i><b>4.2</b> Test for differences between candidates in terms of likes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="change-in-like-scores-over-time.html"><a href="change-in-like-scores-over-time.html"><i class="fa fa-check"></i><b>5</b> Change in like scores over time</a></li>
+<li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Election Memes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="methods" class="section level1">
+<h1><span class="header-section-number">3</span> Methods</h1>
+<p>Data are from Sizzle, an online meme aggregator. Sizzle have coded the meme caption content and exported certain memes that matched candidate names. Each meme has the following data properties:</p>
+<ul>
+<li>platform: facebook, instagram, twitter, imgur</li>
+<li>url: the URL for the meme</li>
+<li>likes: how many likes the meme received</li>
+<li>caption: the text of the caption</li>
+</ul>
+<p>The general approach for this study is to import all the available CSV data, categorize it by candidate, and standardize the likes between social media platforms. This report is built with the R Language version 3.3.1. The report is currently available as a Jupyter-style notebook via Kaggle.</p>
+<pre><code>## Loading required package: methods</code></pre>
+<pre><code>## 
+## Attaching package: &#39;lubridate&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     date</code></pre>
+<div id="data-aggregation" class="section level2">
+<h2><span class="header-section-number">3.1</span> Data Aggregation</h2>
+<p>The Sizzle data are separated by keyword, with a separate keyword corresponding to a separate CSV file. Because some candidates have results that are split across multiple files, we must aggregate across files. The data don’t load perfectly, so we also need to convert a few columns and parse timestamps.</p>
+</div>
+<div id="scoring" class="section level2">
+<h2><span class="header-section-number">3.2</span> Scoring</h2>
+<p>Because social media platforms vary in their users and capabilities, liking dynamics are not the same across networks. As a result, we must standardize likes within networks so that we can make comparisons with all the available data.</p>
+<p>During development, it is useful to double-check the data. This report is typically rendered with the following setting as FALSE, which skips the debugging step.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="background.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="results.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
