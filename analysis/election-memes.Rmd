@@ -26,7 +26,7 @@ set.seed(1620)
 source("fte_theme.R")
 ```
 
-<a href="election_memes.pdf">Available as PDF</a>
+`r if (knitr:::is_html_output()) '<a href="election_memes.pdf">Available as PDF</a>'`
 
 # Introduction
 
