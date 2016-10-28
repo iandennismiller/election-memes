@@ -60,7 +60,7 @@ Data are from Sizzle, an online meme aggregator. Sizzle have coded the meme capt
 
 The general approach for this study is to import all the available CSV data, categorize it by candidate, and standardize the likes between social media platforms. This report is built with the R Language version 3.3.1.  The report is currently available as a Jupyter-style notebook via Kaggle.
 
-```{r}
+```{r libraries, echo=FALSE}
 options(warn=-1)
 library(ggplot2)
 library(lubridate)
@@ -72,7 +72,7 @@ set.seed(1620)
 
 The Sizzle data are separated by keyword, with a separate keyword corresponding to a separate CSV file.  Because some candidates have results that are split across multiple files, we must aggregate across files.  The data don't load perfectly, so we also need to convert a few columns and parse timestamps.
 
-```{r}
+```{r importing}
 mapping = list(
     c("sanders", "../input/Bern.csv"),
     c("sanders", "../input/Bernie.csv"),
@@ -105,7 +105,7 @@ df[["period"]] = as.POSIXct(strptime(df[["period"]], format="%Y-%m-%d"))
 
 Because social media platforms vary in their users and capabilities, liking dynamics are not the same across networks.  As a result, we must standardize likes within networks so that we can make comparisons  with all the available data.
 
-```{r}
+```{r scoring}
 for (network in c('facebook', 'instagram', 'twitter')) {
     cdf = ecdf(df[which(df[["network"]]==network),'likes'])
     df[which(df[["network"]]==network),'percentile'] = cdf(df[which(df[["network"]]==network),'likes'])
@@ -119,7 +119,7 @@ df[which(df[["network"]]=='imgur'),'z_score'] = 0
 
 During development, it is useful to double-check the data.  This report is typically rendered with the following setting as FALSE, which skips the debugging step.
 
-```{r}
+```{r preview, echo=FALSE}
 # Preview the raw data to ensure everything was loaded properly.
 if (FALSE) {
     dim(df)
@@ -159,11 +159,11 @@ t.test(x = df[which(df[["candidate"]]=='clinton'),'z_score'],
 
 From these data, it appears Clinton memes are liked a little bit less than average, whereas Trump memes are liked a little bit more.  There is a small but statistically significant difference between mean likes among these candidates.
 
-# Change in like scores over time
+## Change in like scores over time
 
 Campaigns unfold over time and over the course of many media events. Candidates alternately have their moments of media spotlight on the basis of the attention they can attract. This attention may manifest as memes, which in turn create opportunities for likes. Since attention and likes will vary over time, we broke down meme scores by month to investigate time effects.
 
-```{r score-change}
+```{r score-change, warning=FALSE}
 averages = aggregate( z_score ~ period * candidate, df, mean )
 averages[["z_score"]] = averages[["V1"]]
 

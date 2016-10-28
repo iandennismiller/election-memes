@@ -1,6 +1,7 @@
 ---
 site: "bookdown::bookdown_site"
-book_filename: "election-memes"
+rmd_files: "election-memes.Rmd"
+book_filename: "election_memes"
 output_dir: "../docs"
 bookdown::gitbook:
   config:
