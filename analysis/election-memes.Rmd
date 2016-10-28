@@ -31,7 +31,7 @@ source("fte_theme.R")
 <p>Working Paper.</p>
 </div>
 
-The 2016 US Presidential election is a great opportunity to make some memes.  Lots of people are doing it.  In October of 2016, a meme aggregator called Sizzle shared a subset of their meme data selected for candidate name content.  The data contain over 32,000 memes spanning four networks: Facebook, Instagram, Twitter, and Imgur.  This report first checks the relative quantity of candidate memes across social media platforms.  We then test to see whether memes about Clinton or Trump receive more likes. Finally, we visualize the change in meme liking over time.  Although liking a candidate meme is not equivalent to liking the candidate, it is safe to say that more likes are similar to more attention.  The plot of candidate meme likes over time reveals the monthly competition among US presidential candidates.
+During the 2016 US Presidential election, Internet users are creating a huge quantity of memes.  In October 2016, a meme aggregator called [Sizzle](http://onsizzle.com) shared a subset of their meme data that was filtered for political content.  The data contain over 32,000 memes spanning four social networks: Facebook, Instagram, Twitter, and Imgur.  This report first checks the relative quantity of candidate memes across social media platforms.  We then test to see whether memes about Clinton or Trump receive more likes. Finally, we visualize the change in meme liking over time.  Although liking a candidate meme is not equivalent to liking the candidate, it is safe to say that more likes are similar to more attention.  The plot of candidate meme likes over time reveals the monthly competition among US presidential candidates.
 
 # Background
 
