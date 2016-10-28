@@ -27,3 +27,6 @@ bookdown::gitbook:
       instapper: no
       vk: no
       all: ['facebook', 'google', 'twitter', 'weibo', 'instapaper']
+bookdown::tufte_html_book:
+  toc: yes
+  self_contained: false

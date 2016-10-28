@@ -6,6 +6,7 @@ license: "Apache 2.0"
 documentclass: article
 biblio-style: apalike
 link-citations: yes
+self-contained: false
 output:
   bookdown::pdf_book:
     toc: no
@@ -24,6 +25,8 @@ set.seed(1620)
 
 source("fte_theme.R")
 ```
+
+<a href="election_memes.pdf">Available as PDF</a>
 
 # Introduction
 

@@ -2,8 +2,10 @@
 # 2016 Ian Dennis Miller
 
 analysis:
-	cd analysis && Rscript -e "library(bookdown); bookdown::render_book('election-memes.Rmd', 'bookdown::gitbook')"
-	cp _assets/index.html docs
+	cd analysis && Rscript -e "library(bookdown); bookdown::render_book('election-memes.Rmd', 'bookdown::tufte_html2')"
+	# cd analysis && Rscript -e "library(bookdown); bookdown::render_book('election-memes.Rmd', 'bookdown::gitbook')"
+	# cp _assets/index.html docs
+	cp analysis/election_memes.html docs/index.html
 	# convert -resize '600' docs/_files/figure-html/trends-1.png docs/trends-thumb.png
 
 pdf:
