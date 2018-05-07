@@ -12,7 +12,7 @@
 
 <meta name="author" content="Ian Dennis Miller" />
 
-<meta name="date" content="2016-10-27" />
+<meta name="date" content="2016-10-29" />
 
 <title>Election Memes</title>
 
@@ -42,7 +42,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <h1 class="title toc-ignore">Election Memes</h1>
 <h4 class="author"><em>Ian Dennis Miller</em></h4>
-<h4 class="date"><em>October 27, 2016</em></h4>
+<h4 class="date"><em>October 29, 2016</em></h4>
 
 
 
@@ -54,7 +54,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 Working Paper.
 </p>
 </div>
-<p>During the 2016 US Presidential election, Internet users are creating a huge quantity of memes. In October 2016, a meme aggregator called <a href="http://onsizzle.com">Sizzle</a> shared a subset of their meme data that was filtered for political content. The data contain over 32,000 memes spanning four social networks: Facebook, Instagram, Twitter, and Imgur. This report first checks the relative quantity of candidate memes across social media platforms. We then test to see whether memes about Clinton or Trump receive more likes. Finally, we visualize the change in meme liking over time. Although liking a candidate meme is not equivalent to liking the candidate, it is safe to say that more likes are similar to more attention. The plot of candidate meme likes over time reveals the monthly competition among US presidential candidates.</p>
+<p>During the 2016 US Presidential election, Internet created a huge quantity of memes about the candidates. In October 2016, a meme aggregator called <a href="http://onsizzle.com">Sizzle</a> shared a subset of their meme data that was filtered for political content. The data contain over 38,000 memes spanning four social networks: Facebook, Instagram, Twitter, and Imgur. This report first checks the relative quantity of candidate memes across social media platforms. We then test to see whether memes about Clinton or Trump receive more likes. Finally, we visualize the change in meme liking over time. Although liking a candidate meme is not equivalent to liking the candidate, it is safe to say that more likes are similar to more attention. The plot of candidate meme likes over time reveals the monthly competition among US presidential candidates.</p>
 </div>
 <div id="background" class="section level1">
 <h1>Background</h1>
@@ -74,7 +74,7 @@ Working Paper.
 <div id="bots" class="section level2">
 <h2>Bots</h2>
 <p>Even as social media platforms consolidate power, those platforms have been leveraged by bot networks to increase the quantity of certain messages, alter the visibility of messages, spam comment threads, and vote to influence discussions. Bot networks, just like media platforms, represent the consolidation of control over network messaging. Therefore, our Agent model must allow for malicious actors who generate fake behaviours that are mixed with real behaviours in a way that we cannot distinguish.</p>
-<p>The social media landscape is complex and the political battle currently being waged through these media is very messy, resulting in lots of noise in our social media data. Vast quantities of social media “likes” are attributable to non-human agents. With this caveat in mind, the current report looks at data aggregated by Sizzle, an online meme aggregator.</p>
+<p>The social media landscape is complex and the political battle currently being waged through these media is very messy, resulting in lots of noise in our social media data. Vast quantities of social media “likes” are attributable to non-human agents. We therefore proceed knowing our data consist of meticulously recorded, occasionally fraudulent behaviour indicators.</p>
 </div>
 </div>
 <div id="methods" class="section level1">
@@ -86,17 +86,14 @@ Working Paper.
 <li>likes: how many likes the meme received</li>
 <li>caption: the text of the caption</li>
 </ul>
-<p>The general approach for this study is to import all the available CSV data, categorize it by candidate, and standardize the likes between social media platforms. This report is built with the R Language version 3.3.1. The report is currently available as a Jupyter-style notebook via Kaggle.</p>
+<p>The general approach for this study is to import all the available CSV data, categorize it by candidate, and standardize the likes between social media platforms. This report is built with the R Language version 3.3.1.</p>
 <div id="data-aggregation" class="section level2">
 <h2>Data Aggregation</h2>
 <p>The Sizzle data are separated by keyword, with a separate keyword corresponding to a separate CSV file. Because some candidates have results that are split across multiple files, we must aggregate across files. The data don’t load perfectly, so we also need to convert a few columns and parse timestamps.</p>
 </div>
 <div id="date-range" class="section level2">
 <h2>Date Range</h2>
-<pre><code>##                  Min.               1st Qu.                Median 
-## &quot;2011-12-16 19:13:34&quot; &quot;2016-06-13 00:45:00&quot; &quot;2016-09-27 16:34:30&quot; 
-##                  Mean               3rd Qu.                  Max. 
-## &quot;2016-08-06 20:42:21&quot; &quot;2016-10-16 19:24:00&quot; &quot;2016-10-27 18:05:00&quot;</code></pre>
+<p>The earliest meme in the set was shared on December 16, 2011 and the latest meme comes from October 27, 2016.</p>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:date-range"></span>
 <p class="caption marginnote shownote">
@@ -107,7 +104,7 @@ Figure 1: This plot breaks down the creation of memes over time by network.
 </div>
 <div id="range-of-like-scores" class="section level2">
 <h2>Range of Like Scores</h2>
-<p>We first check to see whether the networks exhibit similar patterns of liking behaviour.</p>
+<p>We look to see whether the networks exhibit similar patterns of liking behaviour.</p>
 <pre><code>## Warning in self$trans$transform(x): NaNs produced</code></pre>
 <pre><code>## Warning: Removed 8875 rows containing non-finite values (stat_boxplot).</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:network-likes-range"></span>
@@ -121,7 +118,6 @@ Figure 2: Each network has a distinctive range of like scores.
 <div id="scoring" class="section level2">
 <h2>Scoring</h2>
 <p>Because social media platforms vary in their users and capabilities, liking dynamics are not the same across networks. As a result, we must standardize likes within networks so that we can make comparisons with all the available data.</p>
-<p>During development, it is useful to double-check the data. This report is typically rendered with the following setting as FALSE, which skips the debugging step.</p>
 </div>
 </div>
 <div id="results" class="section level1">
@@ -140,18 +136,8 @@ Figure 3: This plot shows how many total memes were made about each candidate as
 </div>
 <div id="test-for-differences-between-candidates-in-terms-of-likes" class="section level2">
 <h2>Test for differences between candidates in terms of likes</h2>
-<p>We will compare the standardized, centred scores between the two main candidates: Clinton and Trump.</p>
-<pre><code>## 
-##  Welch Two Sample t-test
-## 
-## data:  df[which(df[[&quot;candidate&quot;]] == &quot;clinton&quot;), &quot;z_score&quot;] and df[which(df$candidate == &quot;trump&quot;), &quot;z_score&quot;]
-## t = -5.2315, df = 32632, p-value = 1.692e-07
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  -0.07596078 -0.03455484
-## sample estimates:
-##   mean of x   mean of y 
-## -0.03048025  0.02477756</code></pre>
+<p>We will compare the standardized, centred scores between the two main candidates: Clinton and Trump. Clinton’s scores</p>
+<p><span class="math inline">\(t(3.2632\times 10^{4}) = -5.231487 (p&lt;0.001)\)</span></p>
 <p>From these data, it appears Clinton memes are liked a little bit less than average, whereas Trump memes are liked a little bit more. There is a small but statistically significant difference between mean likes among these candidates.</p>
 </div>
 <div id="change-in-like-scores-over-time" class="section level2">
